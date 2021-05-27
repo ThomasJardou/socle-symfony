@@ -62,11 +62,6 @@ class Utilisateur implements UserInterface
     private $pseudo;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $jamId;
-
-    /**
      * @ORM\Column(type="boolean")
      */
     private $isBanned = false;
@@ -100,46 +95,6 @@ class Utilisateur implements UserInterface
      * @ORM\Column(type="datetime")
      */
     private $updatedAt;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $twitter;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $facebook;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $discord;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $telegram;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $linkedin;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $github;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $emailPublique;
-
-    /**
-     * @ORM\Column(type="text", nullable=true)
-     */
-    private $biographie;
 
 
     public function __construct()
@@ -297,19 +252,6 @@ class Utilisateur implements UserInterface
 
         return $this;
     }
-
-    public function getJamId(): ?string
-    {
-        return $this->jamId;
-    }
-
-    public function setJamId(?string $jamId): self
-    {
-        $this->jamId = $jamId;
-
-        return $this;
-    }
-
     public function getIsBanned(): ?bool
     {
         return $this->isBanned;
@@ -413,99 +355,4 @@ class Utilisateur implements UserInterface
         return sprintf('%s %s', $this->getFirstName() ?? '' , $this->getLastName() ?? '');
     }
 
-    public function getTwitter(): ?string
-    {
-        return $this->twitter;
-    }
-
-    public function setTwitter(?string $twitter): self
-    {
-        $this->twitter = $twitter;
-
-        return $this;
-    }
-
-    public function getFacebook(): ?string
-    {
-        return $this->facebook;
-    }
-
-    public function setFacebook(?string $facebook): self
-    {
-        $this->facebook = $facebook;
-
-        return $this;
-    }
-
-    public function getDiscord(): ?string
-    {
-        return $this->discord;
-    }
-
-    public function setDiscord(?string $discord): self
-    {
-        $this->discord = $discord;
-
-        return $this;
-    }
-
-    public function getTelegram(): ?string
-    {
-        return $this->telegram;
-    }
-
-    public function setTelegram(?string $telegram): self
-    {
-        $this->telegram = $telegram;
-
-        return $this;
-    }
-
-    public function getLinkedin(): ?string
-    {
-        return $this->linkedin;
-    }
-
-    public function setLinkedin(?string $linkedin): self
-    {
-        $this->linkedin = $linkedin;
-
-        return $this;
-    }
-
-    public function getGithub(): ?string
-    {
-        return $this->github;
-    }
-
-    public function setGithub(?string $github): self
-    {
-        $this->github = $github;
-
-        return $this;
-    }
-
-    public function getEmailPublique(): ?string
-    {
-        return $this->emailPublique;
-    }
-
-    public function setEmailPublique(?string $emailPublique): self
-    {
-        $this->emailPublique = $emailPublique;
-
-        return $this;
-    }
-
-    public function getBiographie(): ?string
-    {
-        return $this->biographie;
-    }
-
-    public function setBiographie(string $biographie): self
-    {
-        $this->biographie = $biographie;
-
-        return $this;
-    }
 }

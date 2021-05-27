@@ -102,7 +102,6 @@ class AdminRolesController extends MainController
     {
 
         return $this->render('admin/admin_roles/read.html.twig', [
-            'item'=> $this->annoncesService->readCategorie($item->getId())
         ]);
     }
 }
