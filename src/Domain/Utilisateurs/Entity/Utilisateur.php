@@ -26,6 +26,7 @@ use Symfony\Component\Validator\Constraints\DateTime;
 class Utilisateur implements UserInterface
 {
     const ROLE_ADMINISTRATEUR = 'ROLE_ADMINISTRATEUR';
+    const ROLE_MEMBRE = 'ROLE_MEMBRE';
 
     /**
      * @ORM\Id

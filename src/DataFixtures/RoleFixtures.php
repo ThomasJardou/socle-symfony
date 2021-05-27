@@ -12,7 +12,7 @@ class RoleFixtures extends Fixture
     {
         $item = new Role();
         $item->setName('Administrateur')
-            ->setSlug('ROLE_ADMIN');
+            ->setSlug('ROLE_ADMINISTRATEUR');
 
         $item2 = new Role();
         $item2->setName('Membre')
