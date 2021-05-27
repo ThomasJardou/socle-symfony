@@ -25,7 +25,7 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class CoreService
 {
-    public function __construct(public EntityManagerInterface $em, public EventDispatcherInterface $dispatcher, private FileUploader $fileUploader, private RoleRepositoryInterface $roleRepository, private MotifSignalementRepository $motifSignalementRepository, private TypeDemandeContactRepository $typeDemandeContactRepository, private  SerializerInterface $serializer){}
+    public function __construct(public EntityManagerInterface $em, public EventDispatcherInterface $dispatcher, private FileUploader $fileUploader, private RoleRepositoryInterface $roleRepository, private  SerializerInterface $serializer){}
 
     public function upload(UploadedFile $file, string $targetDirectory) : Fichier
     {
