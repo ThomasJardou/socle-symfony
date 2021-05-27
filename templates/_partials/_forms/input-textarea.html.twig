@@ -1,0 +1,4 @@
+  <label for="{{ name }}" class="">{% if label is defined %}{{  label }}{% endif %}{% if required is defined and required == true %}
+          <span class="text-red-500">*</span>{% endif %}
+    <textarea name="{{ name }}" id="{{ name }}" cols="30" rows="10" class="form-input mt-1 block w-full  bg-white shadow-sm py-3 {% if add_classes is defined %}{{ add_classes }}{% endif %}">{% if value is defined %}{{  value }}{% endif %}</textarea>
+  </label>

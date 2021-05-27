@@ -1,0 +1,95 @@
+
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}{{action}} d'un utilisateur{% endblock %}
+{% block pageTitle %}{{action}} d'un utilisateur{% endblock %}
+
+{% block body %}
+<div class="bg-white overflow-hidden shadow rounded-lg">
+  <div class="px-4 py-5 sm:p-6">
+      <form action="" method="post">
+          {% include '_partials/_forms/input-text.html.twig' with {
+              'name': 'pseudo',
+              'label': "Pseudo",
+              'placeholder': "Saisir le pseudo",
+              "required": 'true',
+              "add_classes": 'mb-4',
+              "value" : (action == "Édition" and item is defined) ? item.pseudo : ""
+          }
+          %}
+          {% include '_partials/_forms/input-text.html.twig' with {
+                'name': 'last_name',
+                'label': "Nom de famille",
+                'placeholder': "Saisir le nom de famille",
+                "required": 'true',
+                "add_classes": 'mb-4',
+                "value" : (action == "Édition" and item is defined) ? item.lastName : ""
+          }
+          %}
+          {% include '_partials/_forms/input-text.html.twig' with {
+                'name': 'first_name',
+                'label': "Prénom",
+                'placeholder': "Saisir le prénom",
+                "required": 'true',
+                "add_classes": 'mb-4',
+              "value" : (action == "Édition" and item is defined) ? item.firstName : ""
+            } 
+          %}
+          {% include '_partials/_forms/input-email.html.twig' with {
+              'name': 'email',
+              'label': "Email",
+              'placeholder': "Saisir l'adresse mail",
+              "required": 'true',
+              "add_classes": 'mb-4',
+              "value" : (action == "Édition" and item is defined) ? item.email : ""
+          }
+          %}
+          {% include '_partials/_forms/input-password.html.twig' with {
+              'name': 'password',
+              'label': "Mot de passe",
+              'placeholder': "****",
+              "required": (action == "Édition" and item is defined) ? "" : "true",
+              "add_classes": 'mb-4',
+          }
+          %}
+          {% include '_partials/_forms/input-password.html.twig' with {
+              'name': 'confirm_password',
+              'label': "Confirmation du mot de passe",
+              'placeholder': "****",
+              "required": (action == "Édition" and item is defined) ? "" : "true",
+              "add_classes": 'mb-4',
+          }
+          %}
+          <div class="flex flex-col font-sans mb-4">
+              <label for="roles" class="text-gray-600">Rôle(s)</label>
+              <select style="width: 100%" class="js-roles" id="roles" name="roles[]" multiple="multiple" autocomplete="off">
+                  {% if action == "Édition"%}
+                      {% set userRoles = [0] %}
+                      {% for role in item.roles %}
+                          {% set userRoles = userRoles|merge([role]) %}
+                      {% endfor %}
+                  {% endif %}
+                  {% for role in roles %}
+                      <option value="{{ role.id }}" {% if action == "Édition" and role.slug in userRoles %}selected="selected"{% endif %}>{{ role.name }}</option>
+                  {% endfor %}
+              </select>
+          </div>
+          <button class="admin-btn-blue" type="submit">Valider</button>
+      </form>
+  </div>
+</div>
+
+        
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        $(document).ready(function() {
+            $('.js-roles').select2({
+                placeholder: "Liste des rôles",
+                allowClear: true,
+                language: "fr-FR"
+            });
+        });
+    </script>
+{% endblock %}

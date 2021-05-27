@@ -1,0 +1,36 @@
+
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}{{action}} d'un rôle{% endblock %}
+{% block pageTitle %}{{action}} d'un rôle{% endblock %}
+
+{% block body %}
+<div class="bg-white overflow-hidden shadow rounded-lg">
+  <div class="px-4 py-5 sm:p-6">
+      <form action="" method="post" enctype="multipart/form-data">
+          {% if action == "Édition" and item is defined %} {% set value = item.name %} {% elseif data['name'] is defined and data['name'] is not empty %} {% set value = data['name'] %} {% else %} {% set value = '' %} {% endif %}
+          {% include '_partials/_forms/input-text.html.twig' with {
+              'name': 'name',
+              'label': "Nom",
+              'placeholder': "Saisir le nom du rôle",
+              "required": 'true',
+              "add_classes": 'mb-4',
+              "value" : value
+          }
+          %}
+          {% include '_partials/_forms/input-text.html.twig' with {
+              'name': 'slug',
+              'label': "Slug",
+              'placeholder': "Saisir le slug",
+              "required": 'true',
+              "add_classes": 'mb-4',
+              "value" : value
+          }
+          %}
+          <button class="admin-btn-blue" type="submit">Valider</button>
+      </form>
+  </div>
+</div>
+
+        
+{% endblock %}

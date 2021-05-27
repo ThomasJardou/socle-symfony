@@ -1,0 +1,14 @@
+<div class="relative flex items-center  {% if add_classes is defined %}{{ add_classes }}{% endif %}">
+    <div class="flex items-center h-5">
+        <input id="{{name}}"
+               name="{{ name }}"
+               {% if checked is defined and checked == true %}checked="checked"{% endif %}
+               type="checkbox"
+               {% if required is defined and required == true %}required="{{ required }}"{% endif %}
+               class="form-checkbox border">
+    </div>
+    <div class="ml-3 text-sm leading-5">
+        <label for="{{name}}" class="font-medium text-black-700">{{label}} {% if required is defined and required == true %}
+                <span class="text-red-500">*</span>{% endif %}</label>
+    </div>
+</div>

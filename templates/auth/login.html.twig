@@ -1,0 +1,47 @@
+{% extends 'auth/base.html.twig' %}
+{% block h2 %}Connexion{% endblock %}
+{% block body %}
+
+
+    {% include '_partials/_alerts/info.html.twig' with { 'text': 'En vous connectant vous pourrez accéder à vos services et pouvoir interagir sur le site web !' } %}
+
+
+    <div class="my-4">
+        {% if error %}
+            {% include '_partials/_alerts/danger.html.twig' with { 'text': error.messageKey|trans(error.messageData, 'security') } %}
+        {% endif %}
+    </div>
+
+    <form action="" method="post">
+        {% include '_partials/_forms/input-email.html.twig' with {
+            'name': 'email',
+            'label': "Email",
+            'placeholder': "Saisir l'adresse mail",
+            "required": 'true',
+            "add_classes": 'mb-4',
+            "value" : data is defined ? data['email'] : '',
+            "icon": '<i class="las la-envelope"></i>'
+
+        }
+        %}
+        {% include '_partials/_forms/input-password.html.twig' with {
+            'name': 'password',
+            'label': "Mot de passe",
+            'placeholder': "****",
+            "required": 'true',
+            "add_classes": 'mb-4',
+            "value" : data is defined ? data['password'] : '',
+            "icon": '<i class="las la-lock"></i>'
+        }
+        %}
+        <input type="hidden" name="_csrf_token"  value="{{ csrf_token('authenticate') }}" >
+        {% include '_partials/_forms/input-submit.html.twig' with {
+            'text': "Valider",
+            "add_classes": 'mt-4',
+        }
+        %}
+    </form>
+    
+    <p class="text-sm text-center mt-5 opacity-50">Vous avez n'avez pas de compte ? <a href="{{ path("auth-register") }}" class="font-bold">Je m'inscris</a></p>
+
+{% endblock %}

@@ -1,0 +1,151 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Liste des utilisateurs{% endblock %}
+{% block pageTitle %}Liste des utilisateurs{% endblock %}
+
+{% block body %}
+
+    <!-- This example requires Tailwind CSS v2.0+ -->
+    <div class="bg-white overflow-hidden shadow rounded-lg mb-5">
+        <div class="px-4 py-5 sm:px-6">
+            <div class="-ml-4 -mt-2 flex items-center justify-between flex-wrap sm:flex-nowrap">
+                <div class="ml-4 mt-2">
+                    <h3 class="text-lg leading-6 font-medium text-gray-900">
+                        Rechercher une entité
+                    </h3>
+                </div>
+                <div class="ml-4 mt-2 flex-shrink-0">
+                    <a href="{{ path('admin-utilisateurs-create') }}" class="admin-btn-blue">
+                        Créer un nouvel utilisateur
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="bg-gray-50 px-4 py-5 sm:p-6">
+            <form action="" method="post">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                    {% include '_partials/_forms/input-email.html.twig' with {
+                        'name': 'email',
+                        'label': "Email",
+                        'placeholder': "Saisir l'adresse mail",
+                        "add_classes": 'mb-4',
+                        "value" :  app.request.request.get("email") ? app.request.request.get("email") : ""
+                    }
+                    %}
+                    {% include '_partials/_forms/input-text.html.twig' with {
+                        'name': 'pseudo',
+                        'label': "Pseudo",
+                        'placeholder': "Saisir le pseudo",
+                        "add_classes": 'mb-4',
+                        "value" :  app.request.request.get("pseudo") ? app.request.request.get("pseudo") : ""
+                    }
+                    %}
+                    {% include '_partials/_forms/input-text.html.twig' with {
+                        'name': 'last_name',
+                        'label': "Nom de famille",
+                        'placeholder': "Saisir le nom de famille",
+                        "add_classes": 'mb-4',
+                        "value" :  app.request.request.get("last_name") ? app.request.request.get("last_name") : ""
+                    }
+                    %}
+                    {% include '_partials/_forms/input-text.html.twig' with {
+                        'name': 'first_name',
+                        'label': "Prénom",
+                        'placeholder': "Saisir le prénom",
+                        "add_classes": 'mb-4',
+                        "value" :  app.request.request.get("first_name") ? app.request.request.get("first_name") : ""
+                    }
+                    %}
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                    <label class="w-full md:mr-4"> Rôle
+                        <select class="form-select mt-1 block w-full  bg-white shadow-sm py-3  mb-4" name="role" autocomplete="off">
+                            <option value="">-- Choisir un rôle --</option>
+                            {% for item in roles %}
+                                <option value="{{ item.id }}" {{ app.request.request.get('role') == item.id ? 'selected="selected"' : ''  }}>{{ item.name }}</option>
+                            {% endfor %}
+                        </select>
+                    </label>
+                </div>
+                <div class="flex justify-end">
+                    <button type="submit" class="admin-btn-blue">
+                        Rechercher
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+    <div class="flex flex-col">
+      <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+        <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
+          <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
+            <table class="min-w-full divide-y divide-gray-200">
+              <thead class="bg-blue-500 text-white">
+                <tr>
+                    <th class="px-6 py-3 text-left text-xs leading-4 font-medium uppercase tracking-wider">
+                      Email
+                    </th>
+                    <th class="px-6 py-3 text-left text-xs leading-4 font-medium uppercase tracking-wider">
+                        Nom
+                    </th>
+                    <th class="px-6 py-3 text-left text-xs leading-4 font-medium uppercase tracking-wider">
+                      Prénom
+                    </th>
+                    <th class="px-6 py-3 text-left text-xs leading-4 font-medium uppercase tracking-wider">
+                        Rôle(s)
+                    </th>
+                    <th class="px-6 py-3 text-left text-xs leading-4 font-medium uppercase tracking-wider">
+                      Vérifié
+                    </th>
+                  <th class="px-6 py-3"></th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for item in items %}
+                    <tr class="bg-white">
+                        <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 font-medium text-black-500">
+                            {{ item.email }}
+                        </td>
+                  <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 font-medium text-black-500">
+                      {{ item.lastName }}
+                  </td>
+                  <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 font-medium text-black-500">
+                      {{ item.firstName }}
+                  </td>
+                        <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 font-medium text-black-500">
+                            {% for role in item.rolesObject %}
+                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800">{{ role.name }}</span>
+                            {% endfor %}
+                        </td>
+                  <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-black-500">
+                      {% if item.isVerified %}
+                          <div class="rounded-full w-4 h-4 bg-green-500"></div>
+                      {% else %}
+                          <div class="rounded-full w-4 h-4 bg-red-500"></div>
+                      {% endif %}
+                  </td>
+                  <td class="px-6 py-4 whitespace-no-wrap text-right text-sm leading-5 font-medium flex items-center">
+                      <a href="{{ path('admin-utilisateurs-read', {id: item.id}) }}" class="admin-action-icon">
+                          <i class="las la-eye"></i>
+                      </a>
+                    <a href="{{ path('admin-utilisateurs-update', {id: item.id}) }}" class="admin-action-icon">
+                      <i class="las la-pen"></i>
+                    </a>
+                    <a href="{{ path('admin-utilisateurs-delete', {id: item.id}) }}" class="admin-action-icon">
+                      <i class="las la-trash"></i>
+                    </a>
+                  </td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+            <div class="flex justify-center">
+                {{ knp_pagination_render(items) }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+{% endblock %}

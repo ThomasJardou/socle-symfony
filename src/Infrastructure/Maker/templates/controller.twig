@@ -1,0 +1,26 @@
+<?php declare(strict_types=1);
+
+{% if admin %}
+namespace App\Http\Admin\Controller{{ namespace }};
+{% elseif auth %}
+namespace App\Http\Auth\Controller{{ namespace }};
+{% elseif profile %}
+namespace App\Http\Profile\Controller{{ namespace }};
+{% elseif public %}
+namespace App\Http\Public\Controller{{ namespace }};
+{% else %}
+namespace App\Http\Controller{{ namespace }};
+{% endif %}
+
+use App\Http\Controller\MainController;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
+
+class {{ class_name }} extends MainController
+{
+    #[Route('/', name: 'index')]
+    public function index(): Response
+    {
+        return Response::create("ok");
+    }
+}

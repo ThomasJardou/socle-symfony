@@ -1,0 +1,66 @@
+{% extends 'auth/base.html.twig' %}
+{% block h2 %}Inscription{% endblock %}
+{% block body %}
+    {% for flashError in app.flashes('verify_email_error') %}
+        <div class="alert alert-danger" role="alert">{{ flashError }}</div>
+    {% endfor %}
+
+    <form action="" method="post">
+        {% include '_partials/_forms/input-text.html.twig' with {
+            'name': 'pseudo',
+            'label': "Nom d'utilisateur",
+            'placeholder': "Saisir le nom d'utilisateur",
+            "required": 'true',
+            "add_classes": 'mb-4',
+            "icon": '<i class="las la-user"></i>'
+        }
+        %}
+        {% include '_partials/_forms/input-email.html.twig' with {
+            'name': 'email',
+            'label': "Email",
+            'placeholder': "Saisir l'adresse mail",
+            "required": 'true',
+            "add_classes": 'mb-4',
+            "value" : data is defined ? data['email'] : '',
+            "icon": '<i class="lar la-envelope"></i>'
+
+        }
+        %}
+        {% include '_partials/_forms/input-password.html.twig' with {
+            'name': 'password',
+            'label': "Mot de passe",
+            'placeholder': "****",
+            "required": 'true',
+            "add_classes": 'mb-4',
+            "value" : data is defined ? data['password'] : '',
+            "icon": '<i class="las la-lock"></i>'
+
+        }
+        %}
+        {% include '_partials/_forms/input-password.html.twig' with {
+            'name': 'confirm_password',
+            'label': "Confirmation du mot de passe",
+            'placeholder': "****",
+            "required": 'true',
+            "add_classes": 'mb-4',
+            "value" : data is defined ? data['password'] : '',
+            "icon": '<i class="las la-lock"></i>'
+        }
+        %}
+        {% include '_partials/_forms/input-checkbox.html.twig' with {
+            'name': 'terms',
+            'label': "J'accepte les termes d'utilisations",
+            "add_classes": 'mb-4'
+        }
+        %}
+        <input type="hidden" name="_csrf_token"  value="{{ csrf_token('authenticate') }}" >
+        {% include '_partials/_forms/input-submit.html.twig' with {
+            'text': "Valider",
+            "add_classes": 'mt-4',
+        }
+        %}
+    </form>
+
+    <p class="text-sm text-center mt-5 opacity-50">J'ai déjà un compte ? <a href="{{ path("auth-login") }}" class="font-bold">Je me connecte</a></p>
+
+{% endblock %}

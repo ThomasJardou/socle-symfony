@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;700&display=swap" rel="stylesheet">
+    {% block stylesheets %}
+        {{ encore_entry_link_tags('app') }}
+    {% endblock %}
+    {% block javascripts %}
+        {{ encore_entry_script_tags('app') }}
+    {% endblock %}
+</head>
+<body class="font-sans flex justify-center items-center flex-col h-screen">
+    <h1 class="mb-5 text-center">
+        Socle
+    </h1>
+    <div class="bg-white overflow-hidden shadow rounded-lg w-96">
+        <div class="px-4 py-5 sm:p-6">
+            {% for message in app.flashes('success') %}
+                {% include '_partials/_alerts/success.html.twig' with { 'text': message } %}
+            {% endfor %}
+            {% for message in app.flashes('danger') %}
+                {% include '_partials/_alerts/danger.html.twig' with { 'text': message } %}
+            {% endfor %}
+            {% for message in app.flashes('warning') %}
+                {% include '_partials/_alerts/warning.html.twig' with { 'text': message } %}
+            {% endfor %}
+            {% if formErrors is defined and formErrors is not empty %}
+                {% include '_partials/_alerts/formErrors.html.twig' with { 'nb': formErrors|length, "errors": formErrors } %}
+            {% endif %}
+            <h2 class="text-center font-bold text-blue-500 text-2xl mb-5">{% block h2 %}{% endblock %}</h2>
+            {% block body %}{% endblock %}
+        </div>
+    </div>
+</body>
+</html>

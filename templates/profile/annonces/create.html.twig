@@ -1,0 +1,51 @@
+{% extends 'profile/base.html.twig' %}
+
+{% block body %}
+    <section class="p-10">
+        <h2 class="font-display text-3xl uppercase mb-2 font-bold">{{ action }} une annonce</h2>
+    </section>
+    <section class="p-10 bg-gray-50 space-y-5">
+        <form action="" method="post" enctype="multipart/form-data">
+            {% if action == "Édition" and item is defined %} {% set value = item.title %} {% elseif data['title'] is defined and data['title'] is not empty %} {% set value = data['title'] %} {% else %} {% set value = '' %} {% endif %}
+            {% include '_partials/_forms/input-text.html.twig' with {
+                'name': 'title',
+                'label': "Titre",
+                'placeholder': "Saisir le titre de l'annonce",
+                "required": 'true',
+                "add_classes": 'mb-4',
+                "value" : value
+            }
+            %}
+            <div class="flex flex-col font-sans mb-4">
+                <label for="roles" class="text-gray-600">Catégorie(s)</label>
+                <select style="width: 100%" class="js-categories" id="categories" name="categories[]" multiple="multiple" autocomplete="off">
+                    {% if action == "Édition"%}
+                        {% set annonceCategorie = [0] %}
+                        {% for categorie in item.categories %}
+                            {% set annonceCategorie = annonceCategorie|merge([categorie.id]) %}
+                        {% endfor %}
+                    {% endif %}
+                    {% for categorie in categories %}
+                        <option value="{{ categorie.id }}" {% if action == "Édition" and categorie.id in annonceCategorie %}selected="selected"{% endif %}>{{ categorie.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <button class="admin-btn-blue" type="submit">Valider</button>
+        </form>
+    </section>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        window.onload = function () {
+            jQuery(document).ready(function() {
+                jQuery('.js-categories').select2({
+                    placeholder: "Liste des tags",
+                    allowClear: true,
+                    language: "fr-FR"
+                });
+            });
+        }
+    </script>
+{% endblock %}
