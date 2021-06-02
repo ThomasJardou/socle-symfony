@@ -101,4 +101,11 @@ abstract class AbstractMakeCommand extends Command
         $q->setAutocompleterValues($domains);
         return $io->askQuestion($q);
     }
+
+    public function createService($domain)
+    {
+        $this->createFile('service', [
+            'domain' => $domain, 'class_name' => $domain.'Service'
+        ], "src/Domain/".$domain."/".$domain."Service.php");
+    }
 }
