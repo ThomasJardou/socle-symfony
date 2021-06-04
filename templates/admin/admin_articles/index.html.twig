@@ -1,0 +1,85 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Liste des articles{% endblock %}
+{% block pageTitle %}Liste des articles{% endblock %}
+
+{% block body %}
+
+    <!-- This example requires Tailwind CSS v2.0+ -->
+    <div class="bg-white overflow-hidden shadow rounded-lg mb-5">
+        <div class="px-4 py-5 sm:px-6">
+            <div class="-ml-4 -mt-2 flex items-center justify-between flex-wrap sm:flex-nowrap">
+                <div class="ml-4 mt-2">
+                    <h3 class="text-lg leading-6 font-medium text-gray-900">
+                        Rechercher une entité
+                    </h3>
+                </div>
+                <div class="ml-4 mt-2 flex-shrink-0">
+                    <a href="{{ path('admin-articles-create') }}" class="admin-btn-blue">
+                        Créer un nouvel article
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="bg-gray-50 px-4 py-5 sm:p-6">
+            <form action="" method="post">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                    {% include '_partials/_forms/input-text.html.twig' with {
+                        'name': 'title',
+                        'label': "Titre",
+                        'placeholder': "Saisir le titre de l'article",
+                        "add_classes": 'mb-4',
+                        "value" :  app.request.request.get("title") ? app.request.request.get("title") : ""
+                    }
+                    %}
+                </div>
+                <div class="flex justify-end">
+                    <button type="submit" class="admin-btn-blue">
+                        Rechercher
+                    </button>
+                </div>
+            </form>
+        </div>
+
+    </div>
+
+
+    <div class="flex flex-col">
+      <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+        <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
+          <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
+            <table class="min-w-full divide-y divide-gray-200">
+              <thead class="bg-blue-500 text-white">
+                <tr>
+                    <th class="px-6 py-3 text-left text-xs leading-4 font-medium uppercase tracking-wider">
+                      Titre
+                    </th>
+                  <th class="px-6 py-3"></th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for item in items %}
+                    <tr class="bg-white">
+                      <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 font-medium text-black-500">
+                          {{ item.title }}
+                      </td>
+                      <td class="px-6 py-4 whitespace-no-wrap text-right text-sm leading-5 font-medium">
+                        <a href="{{ path('admin-articles-update', {id: item.id}) }}" class="admin-action-icon">
+                          <i class="las la-pen"></i>
+                        </a>
+                        <a href="{{ path('admin-articles-delete', {id: item.id}) }}" class="admin-action-icon">
+                          <i class="las la-trash"></i>
+                        </a>
+                      </td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+            <div class="flex justify-center">
+                {{ knp_pagination_render(items) }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+{% endblock %}

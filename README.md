@@ -57,3 +57,33 @@ Pour installer les fixtures (rôle administrateur) :
 ```sh
 php bin/console doctrine:fixtures:load
 ```
+
+## Wiki des commandes
+
+Création d'un domaine :
+```sh
+php bin/console do:domain <domainName>
+```
+
+Création d'un controller administration :
+```sh
+php bin/console do:controller <controllerName> --admin
+```
+
+
+Création d'un controller public :
+```sh
+php bin/console do:controller <controllerName> --public
+```
+
+
+Création d'un controller authentification :
+```sh
+php bin/console do:controller <controllerName> --auth
+```
+
+
+Création d'un controller profile :
+```sh
+php bin/console do:controller <controllerName> --profile
+```

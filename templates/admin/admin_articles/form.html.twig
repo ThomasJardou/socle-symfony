@@ -1,0 +1,38 @@
+
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}{{action}} d'un article{% endblock %}
+{% block pageTitle %}{{action}} d'un article{% endblock %}
+
+{% block body %}
+<div class="bg-white overflow-hidden shadow rounded-lg">
+  <div class="px-4 py-5 sm:p-6">
+      <form action="" method="post" enctype="multipart/form-data">
+          {% if action == "Édition" and item is defined %} {% set value = item.title %} {% elseif data['title'] is defined and data['title'] is not empty %} {% set value = data['title'] %} {% else %} {% set value = '' %} {% endif %}
+          {% include '_partials/_forms/input-text.html.twig' with {
+              'name': 'title',
+              'label': "Titre",
+              'placeholder': "Saisir le nom de l'article",
+              "required": 'true',
+              "add_classes": 'mb-4',
+              "value" : value
+          }
+          %}
+
+          {% if action == "Édition" and item is defined %} {% set value = item.content %} {% elseif data['content'] is defined and data['content'] is not empty %} {% set value = data['content'] %} {% else %} {% set value = '' %} {% endif %}
+          {% include '_partials/_forms/input-text.html.twig' with {
+              'name': 'content',
+              'label': "Contenu",
+              'placeholder': "Saisir le contenu",
+              "required": 'true',
+              "add_classes": 'mb-4',
+              "value" : value
+          }
+          %}
+          <button class="admin-btn-blue" type="submit">Valider</button>
+      </form>
+  </div>
+</div>
+
+        
+{% endblock %}

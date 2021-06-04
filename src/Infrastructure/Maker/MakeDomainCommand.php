@@ -35,7 +35,7 @@ class MakeDomainCommand extends AbstractMakeCommand
         $basePath = 'src';
 
         $foldersToCreate = ['Entity', 'Event', 'Interface', 'Query','Repository','Resolver', 'Subscriber', 'Validator'];
-
+        
         mkdir($basePath.'/Domain/'.$domain);
         foreach ($foldersToCreate as $folder){
            mkdir($basePath.'/Domain/'.$domain.'/'.$folder);

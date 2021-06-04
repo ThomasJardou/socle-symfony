@@ -54,3 +54,7 @@ services:
     App\Domain\Core\Resolver\RoleResolver:
         tags:
             - { name: 'controller.argument_value_resolver' }
+
+    App\Domain\Blog\Resolver\ArticleResolver:
+        tags:
+            - { name: 'controller.argument_value_resolver' }

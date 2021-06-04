@@ -1,0 +1,170 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Fiche Utilisateur{% endblock %}
+{% block pageTitle %}Fiche Utilisateur{% endblock %}
+
+{% block body %}
+    <div class="mx-auto md:flex md:items-center md:justify-between md:space-x-5">
+        <div class="flex items-center space-x-5">
+            <div class="flex-shrink-0">
+                <div class="relative">
+                    <img class="h-16 w-16 rounded-full" src="{{ item.avatar ? asset(get_parameter("avatar_directory") ~ item.avatar) : asset('pixelads/baseavatar.png') }}" alt="">
+                    <span class="absolute inset-0 shadow-inner rounded-full" aria-hidden="true"></span>
+                </div>
+            </div>
+            <div>
+                <h1 class="text-2xl font-bold text-gray-900">{{ item.fullname ?? 'Aucun nom + prénom' }}</h1>
+                <p class="text-sm font-medium text-gray-500">Inscrit le <time datetime="{{ item.createdAt|date('Y-m-d') }}">{{ item.createdAt|date('d/m/Y') }}</time></p>
+            </div>
+        </div>
+        <div class="mt-6 flex flex-col-reverse justify-stretch space-y-4 space-y-reverse sm:flex-row-reverse sm:justify-end sm:space-x-reverse sm:space-y-0 sm:space-x-3 md:mt-0 md:flex-row md:space-x-3">
+            <a href="{{ path('admin-utilisateurs-update', {id: item.id}) }}" class="inline-flex items-center justify-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-blue-500">
+                Éditer
+            </a>
+            <a href="{{ path('admin-utilisateurs-delete', {id: item.id}) }}" class="inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-blue-500">
+                Supprimer
+            </a>
+        </div>
+    </div>
+
+    <div class="mt-8 mx-auto grid grid-cols-1 gap-6 lg:grid-flow-col-dense lg:grid-cols-3">
+        <div class="space-y-6 lg:col-start-1 lg:col-span-2">
+            <!-- Description list-->
+            <section aria-labelledby="applicant-information-title">
+                <div class="bg-white shadow sm:rounded-lg">
+                    <div class="px-4 py-5 sm:px-6">
+                        <h2 id="applicant-information-title" class="text-lg leading-6 font-medium text-gray-900">
+                            Informations personnelles
+                        </h2>
+                    </div>
+                    <div class="px-4 py-5 sm:px-6">
+                        <dl class="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2">
+                            <div class="sm:col-span-1">
+                                <dt class="text-sm font-medium text-gray-500">
+                                    Twitter
+                                </dt>
+                                <dd class="mt-1 text-sm text-gray-900">
+                                    {{ item.twitter ? item.twitter : "N/C" }}
+                                </dd>
+                            </div>
+                            <div class="sm:col-span-1">
+                                <dt class="text-sm font-medium text-gray-500">
+                                    Facebook
+                                </dt>
+                                <dd class="mt-1 text-sm text-gray-900">
+                                    {{ item.facebook ? item.facebook : "N/C"}}
+                                </dd>
+                            </div>
+                            <div class="sm:col-span-1">
+                                <dt class="text-sm font-medium text-gray-500">
+                                    Discord
+                                </dt>
+                                <dd class="mt-1 text-sm text-gray-900">
+                                    {{ item.discord ? item.discord : "N/C"}}
+                                </dd>
+                            </div>
+                            <div class="sm:col-span-1">
+                                <dt class="text-sm font-medium text-gray-500">
+                                    Telegram
+                                </dt>
+                                <dd class="mt-1 text-sm text-gray-900">
+                                    {{ item.telegram ? item.telegram : "N/C"}}
+                                </dd>
+                            </div>
+                            <div class="sm:col-span-1">
+                                <dt class="text-sm font-medium text-gray-500">
+                                    Linkedin
+                                </dt>
+                                <dd class="mt-1 text-sm text-gray-900">
+                                    {{ item.linkedin ? item.linkedin : "N/C" }}
+                                </dd>
+                            </div>
+                            <div class="sm:col-span-1">
+                                <dt class="text-sm font-medium text-gray-500">
+                                    Github
+                                </dt>
+                                <dd class="mt-1 text-sm text-gray-900">
+                                    {{ item.github ? item.github : "N/C"}}
+                                </dd>
+                            </div>
+                            <div class="sm:col-span-1">
+                                <dt class="text-sm font-medium text-gray-500">
+                                    Email publique
+                                </dt>
+                                <dd class="mt-1 text-sm text-gray-900">
+                                    {{ item.emailPublique ? item.emailPublique : "N/C"}}
+                                </dd>
+                            </div>
+                            <div class="sm:col-span-2">
+                                <dt class="text-sm font-medium text-gray-500">
+                                    Biographie
+                                </dt>
+                                <dd class="mt-1 text-sm text-gray-900">
+                                    {{ item.biographie ? item.biographie : "N/C"}}
+                                </dd>
+                            </div>
+                        </dl>
+                    </div>
+                </div>
+            </section>
+        </div>
+        <section aria-labelledby="timeline-title" class="lg:col-start-3 lg:col-span-1">
+            <div class="bg-white px-4 py-5 shadow sm:rounded-lg sm:px-6">
+                <h2 id="timeline-title" class="text-lg font-medium text-gray-900 ">Annonces</h2>
+
+                <!-- Activity Feed -->
+                <div class="mt-6 flow-root">
+                    <ul class="-mb-8">
+                        <li>
+                            <div class="relative pb-8">
+                                <div class="relative flex space-x-3">
+                                    <div>
+                                      <a href="" class="h-8 w-8 rounded-full bg-gray-400 flex items-center justify-center ring-8 ring-white text-white hover:bg-blue-500 transition duration-200">
+                                          <i class="las la-eye"></i>
+                                      </a>
+                                    </div>
+                                    <div class="min-w-0 flex-1 pt-1.5 flex justify-between space-x-4">
+                                        <div>
+                                            <p class="text-sm text-gray-500">Annonce 1</p>
+                                        </div>
+                                        <div class="text-right text-sm whitespace-nowrap text-gray-500">
+                                            <time datetime="2020-09-20">10/01/2021</time>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="bg-white px-4 py-5 shadow sm:rounded-lg sm:px-6 mt-5">
+                <h2 id="timeline-title" class="text-lg font-medium text-gray-900 ">Offres</h2>
+
+                <!-- Activity Feed -->
+                <div class="mt-6 flow-root">
+                    <ul class="-mb-8">
+                        <li>
+                            <div class="relative pb-8">
+                                <div class="relative flex space-x-3">
+                                    <div>
+                                      <a href="" class="h-8 w-8 rounded-full bg-gray-400 flex items-center justify-center ring-8 ring-white text-white hover:bg-blue-500 transition duration-200">
+                                          <i class="las la-eye"></i>
+                                      </a>
+                                    </div>
+                                    <div class="min-w-0 flex-1 pt-1.5 flex justify-between space-x-4">
+                                        <div>
+                                            <p class="text-sm text-gray-500">Offre 1</p>
+                                        </div>
+                                        <div class="text-right text-sm whitespace-nowrap text-gray-500">
+                                            <time datetime="2020-09-20">10/01/2021</time>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </div>
+{% endblock %}

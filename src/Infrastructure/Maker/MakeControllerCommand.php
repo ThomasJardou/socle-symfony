@@ -28,6 +28,7 @@ class MakeControllerCommand extends AbstractMakeCommand
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $io = new SymfonyStyle($input, $output);
+
         /** @var string $controllerPath */
         $controllerPath = $input->getArgument('controllerName');
         if ('Controller' !== substr($controllerPath, -1 * strlen('Controller'))) {
@@ -65,6 +66,7 @@ class MakeControllerCommand extends AbstractMakeCommand
             'profile' => $profile,
             'public' => $public
         ];
+
         
 
         $this->createFile('controller', $params, "{$basePath}{$controllerPath}.php");
